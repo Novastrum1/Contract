@@ -99,6 +99,7 @@ Testnet contract state has not been verified; see
 - [docs/UPSTREAM_COMPARISON.md](docs/UPSTREAM_COMPARISON.md): exact upstream comparison and licensing limits
 - [docs/DEPENDENCY_SECURITY.md](docs/DEPENDENCY_SECURITY.md): unresolved RustSec advisory and dependency constraints
 - [docs/LICENSING_REVIEW.md](docs/LICENSING_REVIEW.md): preserved licenses and unresolved upstream conflict
+- [docs/PRODUCTION_GOVERNANCE.md](docs/PRODUCTION_GOVERNANCE.md): launch gates, multisig defaults, custody policy and external approvals
 - [docs/review/PR9_REMEDIATION.md](docs/review/PR9_REMEDIATION.md): PR #9 findings, verified fixes and remaining approvals
 - [docs/review/BASELINE_AUDIT.md](docs/review/BASELINE_AUDIT.md): maintainer review baseline
 - [SECURITY.md](SECURITY.md): threat model, known limitations, reporting
