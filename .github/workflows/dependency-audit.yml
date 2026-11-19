@@ -1,0 +1,28 @@
+name: Dependency Audit
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: "31 6 * * *"
+permissions:
+  contents: read
+jobs:
+  npm-audit:
+    name: Installed dependency audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+        with:
+          node-version: 22
+      - name: Audit each generated binding
+        run: |
+          for contract in factory pair router; do
+            npm ci --ignore-scripts --prefix "bindings/$contract"
+            npm audit --audit-level=moderate --prefix "bindings/$contract"
+          done

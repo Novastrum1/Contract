@@ -4,6 +4,8 @@ version: 2
 updates:
   # Rust crates (cargo workspace at the repository root).
   - package-ecosystem: "cargo"
+    cooldown:
+      default-days: 7
     directory: "/"
     schedule:
       interval: "weekly"
@@ -38,6 +40,8 @@ updates:
   # TypeScript contract bindings consumed by veltrixae-frontend and
   # veltrixae-aggregator.
   - package-ecosystem: "npm"
+    cooldown:
+      default-days: 7
     directories:
       - "/bindings/factory"
       - "/bindings/pair"
@@ -69,3 +73,12 @@ updates:
     labels: ["dependencies", "ci"]
     commit-message:
       prefix: "ci"
+
+  # Independent Rust workspace used to generate bindings and metadata.
+  - package-ecosystem: cargo
+    directory: /tools/spec-tool
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 7
+    open-pull-requests-limit: 5
