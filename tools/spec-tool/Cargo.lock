@@ -811,6 +811,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "soroban-spec"
+version = "29.0.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "092d55c5563d973c681fb8016fb9bc47a9e8c3d3aa4a5dafcc1c3d4ebc415829"
+dependencies = [
+ "base64 0.22.1",
+ "sha2 0.10.9",
+ "stellar-xdr",
+ "thiserror 1.0.69",
+ "wasmparser",
+]
+
+[[package]]
 name = "soroban-spec-typescript"
 version = "28.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -825,7 +838,7 @@ dependencies = [
  "serde_derive",
  "serde_json",
  "sha2 0.9.9",
- "soroban-spec",
+ "soroban-spec 28.0.0",
  "stellar-xdr",
  "thiserror 1.0.69",
 ]
@@ -980,7 +993,7 @@ version = "0.1.0"
 dependencies = [
  "serde_json",
  "sha2 0.10.9",
- "soroban-spec",
+ "soroban-spec 29.0.1",
  "soroban-spec-typescript",
  "stellar-xdr",
 ]
