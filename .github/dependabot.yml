@@ -82,3 +82,15 @@ updates:
     cooldown:
       default-days: 7
     open-pull-requests-limit: 5
+    groups:
+      spec-generator:
+        patterns: ["soroban-spec", "soroban-spec-typescript", "stellar-xdr"]
+    ignore:
+      # These crates exchange concrete XDR types. Major migrations must move
+      # the generator, parser and XDR together and regenerate checked-in output.
+      - dependency-name: soroban-spec
+        update-types: ["version-update:semver-major"]
+      - dependency-name: soroban-spec-typescript
+        update-types: ["version-update:semver-major"]
+      - dependency-name: stellar-xdr
+        update-types: ["version-update:semver-major"]
