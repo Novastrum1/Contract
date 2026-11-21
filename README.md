@@ -83,9 +83,13 @@ submits transactions requires an explicit confirmation, refuses mainnet, and
 reads keys only from the Stellar CLI keystore. See
 [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
 
-No deployment IDs or receipts are recorded in this repository. Project
-Testnet contract state has not been verified; see
-[docs/TESTNET_VERIFICATION.md](docs/TESTNET_VERIFICATION.md).
+An older Testnet deployment from commit `133b18d00505108c26382cb44045abab48b51882`
+has public IDs and receipts preserved in the backend repository. Read-only checks
+on 2026-11-21 matched its Factory, Router and uploaded Pair WASM hashes. Its
+factory has zero pools. This is **not a deployment of current main**; the newer
+constructor and rounding fixes are not present in those immutable contracts.
+See [docs/TESTNET_VERIFICATION.md](docs/TESTNET_VERIFICATION.md) for evidence and
+remaining provenance, licensing, liquidity and wallet-signing limitations.
 
 ## Documentation
 

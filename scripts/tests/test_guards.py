@@ -78,13 +78,14 @@ else:
         return subprocess.run(['bash', str(self.root / 'scripts' / script), *args],
                               env=self.env, capture_output=True, text=True)
 
-    def assert_no_submission(self):
+    def assert_no_submission(self, allow_source=False):
         calls = [json.loads(line) for line in self.calls.read_text().splitlines()] if self.calls.exists() else []
         for call in calls:
             if call[:2] == ['contract', 'invoke']:
                 self.assertIn('--send=no', call)
             self.assertNotIn('--send=yes', call)
-            self.assertNotIn('--source', call)
+            if not allow_source:
+                self.assertNotIn('--source', call)
             self.assertIn('https://soroban-testnet.stellar.org', call)
             self.assertIn('Test SDF Network ; September 2015', call)
 
@@ -122,11 +123,23 @@ else:
         self.assert_no_submission()
 
     def test_verifier_unavailable_pair_count_fails(self):
+        # Anonymous verification must also work on macOS Bash 3 with nounset.
         self.env['PAIR_COUNT_FAILURE'] = '1'
         result = self.run_script('verify-deployment.sh')
         self.assertNotEqual(result.returncode, 0)
         self.assertIn('factory.all_pairs_length unavailable', result.stdout)
         self.assert_no_submission()
+
+    def test_verifier_optional_source_stays_read_only(self):
+        result = self.run_script('verify-deployment.sh', '--source', 'mock-identity')
+        self.assertEqual(result.returncode, 0, result.stderr)
+        calls = [json.loads(line) for line in self.calls.read_text().splitlines()]
+        reads = [call for call in calls if 'invoke' in call]
+        self.assertTrue(reads)
+        for call in reads:
+            self.assertIn('--send=no', call)
+            self.assertEqual(call[call.index('--source') + 1], 'mock-identity')
+        self.assert_no_submission(allow_source=True)
 
     def test_verifier_malformed_pair_count_fails(self):
         self.env['PAIR_COUNT_OUTPUT'] = 'not-a-count'

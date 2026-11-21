@@ -23,14 +23,18 @@ OUT="$(deployment_file "$NETWORK")"
 jq -e '.network == "testnet"' "$OUT" >/dev/null || die "Manifest network is not testnet."
 network="$(curl --fail --silent --show-error "$TESTNET_RPC_URL" -H 'Content-Type: application/json' --data '{"jsonrpc":"2.0","id":1,"method":"getNetwork"}')"
 [[ "$(jq -er .result.passphrase <<<"$network")" == "$TESTNET_PASSPHRASE" ]] || die "RPC network passphrase mismatch."
-SRC_ARGS=(); [[ -n "$SOURCE" ]] && SRC_ARGS=(--source "$SOURCE")
 
 FACTORY_ID="$(jq -r .contracts.factory.id "$OUT")"
 ROUTER_ID="$(jq -r .contracts.router.id "$OUT")"
 FAIL=0
 pass() { printf '  \033[32mPASS\033[0m %s\n' "$*"; }
 fail() { printf '  \033[31mFAIL\033[0m %s\n' "$*"; FAIL=1; }
-view() { "$STELLAR" contract invoke "${SRC_ARGS[@]}" "${TESTNET_ARGS[@]}" --send=no "$@" 2>/dev/null | tr -d '"'; }
+view() {
+  # Bash 3 with nounset rejects expansion of an empty array. Add the optional
+  # source to the positional arguments instead; anonymous reads need no key.
+  if [[ -n "$SOURCE" ]]; then set -- --source "$SOURCE" "$@"; fi
+  "$STELLAR" contract invoke "${TESTNET_ARGS[@]}" --send=no "$@" 2>/dev/null | tr -d '"'
+}
 
 log "Verifying $NETWORK deployment from $OUT"
 

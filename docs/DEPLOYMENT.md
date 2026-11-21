@@ -8,8 +8,8 @@
 
 > **Not yet exercised against the network.** The scripts were written for
 > Stellar CLI v28 and their argument handling and safety guards were tested
-> locally. No verified deployment IDs or receipts are available. Recover any
-> existing public records before considering a newly approved deployment; see
+> locally. An older deployment's public records have since been recovered in
+> the backend repository; they do not exercise this constructor-based flow. See
 > [TESTNET_VERIFICATION.md](TESTNET_VERIFICATION.md).
 
 ## Prerequisites
