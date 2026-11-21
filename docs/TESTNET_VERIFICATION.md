@@ -1,5 +1,42 @@
 # Public Testnet verification
 
+## Current evidence — 2026-11-21
+
+The November 4 review below describes the records available in that checkout.
+Public records have since been recovered from the backend repository. This
+supersedes its blanket missing-records status, without claiming deployment of
+current Contract `main`.
+
+Deployed source: `133b18d00505108c26382cb44045abab48b51882`, an older local
+branch preserved in the backend evidence bundle, not a public Contract branch.
+Current constructor and rounding fixes do not alter those immutable contracts.
+
+| Check | Current result |
+| --- | --- |
+| Factory | `CCBE2WCHO5PY6WVXTKZLIZA446M43RTOVD4S6XZYHPHJEL7K33LHW6RA`; observed WASM matches recorded SHA-256 |
+| Router | `CDSNTA4DH5CXDJJMY4QQ6IUF2M3VLR2WVPCL3UUQMCVUDQ5ZHVYWUZA4`; observed WASM matches recorded SHA-256; factory link matches |
+| Pair code | Uploaded WASM hash matches; no Pair instance exists; reported code TTL is zero, so usable code lifetime/restoration must be checked before pool creation |
+| Receipts | Seven historical transactions match success, hash, ledger, fee and source through Horizon; outside current RPC retention |
+| Pools | Zero; no funded VELTRIXAE pool or live wallet-signed swap demonstrated |
+| Aggregator | Not deployed |
+| Deployment of current main | Not demonstrated |
+
+Evidence lives in [the backend evidence directory](https://github.com/VELTRIXAE/Aggregator-and-Backend/tree/main/docs/evidence).
+See `contracts-testnet-deployment-2026-11-02.json`,
+`contracts-testnet-completion-2026-11-02.json`,
+`testnet-verification-2026-11-21.json` and `horizon-receipts-2026-11-21.json`.
+The [reconciliation](https://github.com/VELTRIXAE/Aggregator-and-Backend/blob/main/docs/DEPLOYMENT_RECONCILIATION.md)
+records the historical byte-identical rebuild and toolchain. Reproducing that
+build requires its preserved bundle; this checkout alone is insufficient.
+Receipt status checks do not independently decode/bind each historical XDR
+operation to a contract. Preserve that provenance limitation.
+
+Licensing remains unresolved; see [LICENSING_REVIEW.md](LICENSING_REVIEW.md).
+No chain write was performed for this verification. Legacy manifests are not
+placed in `deployments/`, where current scripts might act on them.
+
+## Historical review — 2026-11-04
+
 Checked 2026-11-04 from baseline `499fef4` plus this review's changes.
 **Project deployment evidence: NOT VERIFIED.** The maintainer confirmed no
 verified IDs, manifests or transaction hashes are currently available.
